@@ -22,8 +22,6 @@ app.post('/posts', async (req, res) => {
     title,
   };
 
-  /* ======================================= THIS CAUSES ERROR WHEN UNCOMMENTED =======================================
-
   await axios.post('http://localhost:4005/events', {
     type: 'PostCreated',
     data: {
@@ -31,14 +29,17 @@ app.post('/posts', async (req, res) => {
       title,
     },
   });
-  
-  ==================================================================================================================
-   */
 
   res.status(201).send(posts[id]);
 });
 
-PORT = 4000;
+app.post('/events', (req, res) => {
+  console.log('Received Event:', req.body.type);
+
+  res.send({});
+});
+
+const PORT = 4000;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });

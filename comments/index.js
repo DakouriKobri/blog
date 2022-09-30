@@ -23,8 +23,6 @@ app.post('/posts/:id/comments', async (req, res) => {
 
   commentsByPostId[req.params.id] = comments;
 
-  /* ======================================= THIS CAUSES ERROR WHEN UNCOMMENTED =======================================
-
   await axios.post('http://localhost:4005/events', {
     type: 'CommentCreated',
     data: {
@@ -34,13 +32,16 @@ app.post('/posts/:id/comments', async (req, res) => {
     },
   });
 
-  ====================================================================================================================
- */
-
   res.status(201).send(comments);
 });
 
-PORT = 4001;
+app.post('/events', (req, res) => {
+  console.log('Received Event:', req.body.type);
+
+  res.send({});
+});
+
+const PORT = 4001;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
